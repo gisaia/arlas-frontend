@@ -1,0 +1,173 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "cli": {
+    "analytics": false,
+    "cache": {
+      "enabled": false
+    }
+  },
+  "newProjectRoot": "projects",
+  "projects": {
+    "arlas-wui-test": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "arlas-wui-test",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/arlas-wui-test",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "src/assets",
+              "src/favicon.ico",
+              "src/config.json",
+              "src/config.map.json",
+              "src/settings.yaml"
+            ],
+            "styles": [
+              "node_modules/arlas-wui/src/styles/arlas-wui-theme.scss",
+              "node_modules/arlas-wui/src/styles/timeline.scss",
+              "node_modules/arlas-wui/src/styles/donut.css",
+              "node_modules/arlas-wui/src/styles/filter.scss",
+              "node_modules/arlas-wui/src/styles/histogram.css",
+              "node_modules/arlas-wui/src/styles/map.scss",
+              "node_modules/arlas-wui/src/styles/powerbars.css",
+              "node_modules/arlas-wui/src/styles/resultlist.scss",
+              "node_modules/arlas-wui/src/styles/analytics.scss",
+              "node_modules/arlas-wui/src/styles/swimlane.css",
+              "node_modules/arlas-wui/src/styles/hopscotch/hopscotch.css",
+              "node_modules/iv-viewer/dist/iv-viewer.css",
+              "node_modules/@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css",
+              "src/styles.scss",
+              "node_modules/maplibre-gl/dist/maplibre-gl.css"
+
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "6mb",
+                  "maximumError": "7mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "6kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all",
+              "assets": [
+                "src/favicon.ico",
+                "src/assets",
+                {
+                  "input": "src/environments/prod",
+                  "output": "/",
+                  "glob": "settings.yaml"
+                },
+                {
+                  "input": "src/environments/prod/basemap",
+                  "output": "/assets/basemap",
+                  "glob": "*.json"
+                }
+              ]
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "arlas-wui-test:build:production"
+            },
+            "development": {
+              "buildTarget": "arlas-wui-test:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "arlas-wui-test:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "src/assets",
+              "src/favicon.ico",
+              "src/config.json",
+              "src/config.map.json",
+              "src/settings.yaml"
+            ],
+            "styles": [
+              "node_modules/arlas-wui/src/styles/arlas-wui-theme.scss",
+              "node_modules/arlas-wui/src/styles/timeline.scss",
+              "node_modules/arlas-wui/src/styles/donut.css",
+              "node_modules/arlas-wui/src/styles/filter.scss",
+              "node_modules/arlas-wui/src/styles/histogram.css",
+              "node_modules/arlas-wui/src/styles/map.scss",
+              "node_modules/arlas-wui/src/styles/powerbars.css",
+              "node_modules/arlas-wui/src/styles/resultlist.scss",
+              "node_modules/arlas-wui/src/styles/analytics.scss",
+              "node_modules/arlas-wui/src/styles/swimlane.css",
+              "node_modules/arlas-wui/src/styles/hopscotch/hopscotch.css",
+              "node_modules/iv-viewer/dist/iv-viewer.css",
+              "node_modules/@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css",
+              "src/styles.scss",
+              "node_modules/maplibre-gl/dist/maplibre-gl.css"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "eslintConfig": ".eslintrc.json",
+            "lintFilePatterns": [
+              "src/**/*.spec.ts",
+              "src/**/*.d.ts",
+              "src/**/*.ts"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
