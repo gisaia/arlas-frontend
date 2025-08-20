@@ -1,0 +1,15 @@
+{
+  "name": "@arlas/common",
+  "version": "27.1.0",
+  "description": "Common interfaces of ARLAS libraries",
+  "homepage": "https://github.com/gisaia/arlas-frontend#readme",
+  "bugs": {
+    "url": "https://github.com/gisaia/arlas-frontend/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gisaia/arlas-frontend.git"
+  },
+  "license": "Apache-2.0",
+  "author": "Gisaïa"
+}
