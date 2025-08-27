@@ -1,0 +1,22 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../dist/@arlas/common",
+    "baseUrl": "interfaces",
+    "sourceMap": true,
+    "declaration": true,
+    "emitDecoratorMetadata": true,
+    "stripInternal": true,
+  },
+  "files": [
+    "index.ts"
+  ],
+  "include": [
+    "interfaces/**/*",
+    "index.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}

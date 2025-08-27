@@ -1,27 +1,15 @@
 {
-  "compileOnSave": false,
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "skipLibCheck": true,
-    "importHelpers": true,
-    "outDir": "./dist/out-tsc",
+    "outDir": "../../dist/",
     "baseUrl": "src",
     "sourceMap": true,
     "declaration": false,
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
     "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "target": "ES2022",
     "types": [
       "node",
       "geojson"
     ],
-    "lib": [
-      "es2016",
-      "dom"
-    ],
-    "module": "esnext",
     "useDefineForClassFields": false
   }
 }
