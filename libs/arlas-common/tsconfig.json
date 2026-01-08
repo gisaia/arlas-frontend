@@ -1,7 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../dist/@arlas/common",
+    "outDir": "../../dist/arlas-common",
     "baseUrl": "interfaces",
     "sourceMap": true,
     "declaration": true,
