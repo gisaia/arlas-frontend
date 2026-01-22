@@ -3,7 +3,7 @@ set -e
 
 usage(){
 	echo "Usage: ./release.sh -version='1.0.0' -ref_branch=develop --stage=beta|rc|stable"
-	echo " -version      @arlas/common version release,level of evolution"
+	echo " -version      arlas-common version release,level of evolution"
     echo " -s|--stage    Stage of the release : beta | rc | stable. If --stage is 'rc' or 'beta', there is no merge of develop into master (if -ref_branch=develop)"
     echo " -i|--stage_iteration=n, the released version will be : [x].[y].[z]-beta.[n] OR  [x].[y].[z]-rc.[n] according to the given --stage"
 	echo " -ref_branch | --reference_branch  from which branch to start the release."
@@ -31,9 +31,9 @@ releaseProd(){
     git checkout "$BRANCH"
     git pull origin "$BRANCH"
     echo "=> Test to lint and build the project on "$BRANCH" branch"
-    npm --no-git-tag-version -w @arlas/common version ${VERSION}
+    npm --no-git-tag-version -w arlas-common version ${VERSION}
 
-    echo "=> Build the @arlas/common library"
+    echo "=> Build the arlas-common library"
     npm install
     npm run common:lint
     npm run common:build
@@ -64,9 +64,9 @@ releaseProd(){
     git push origin v"$VERSION"
     git push origin "$BRANCH"
 
-    cp LICENSE dist/@arlas/common/LICENSE
-    cp libs/arlas-common/package.json dist/@arlas/common/package.json
-    cd dist/@arlas/common
+    cp LICENSE dist/arlas-common/LICENSE
+    cp libs/arlas-common/package.json dist/arlas-common/package.json
+    cd dist/arlas-common
 
     echo "=> Publish to npm"
     if [ "${STAGE_LOCAL}" == "rc" ] || [ "${STAGE_LOCAL}" == "beta" ];
@@ -95,7 +95,7 @@ releaseProd(){
     minor=${TAB[1]}
     newminor=$(( $minor + 1 ))
     newDevVersion=${major}.${newminor}.0
-    npm --no-git-tag-version -w @arlas/common version ""$newDevVersion"-dev0"
+    npm --no-git-tag-version -w arlas-common version ""$newDevVersion"-dev0"
     git add .
     commit_message="update package.json to"-"$newDevVersion"
     git commit -m "$commit_message" --allow-empty
@@ -186,6 +186,6 @@ fi
 
 if [ ! -z ${RELEASE_VERSION+x} ];
     then
-        echo "Release @arlas/common version: ${RELEASE_VERSION}";
+        echo "Release arlas-common version: ${RELEASE_VERSION}";
         release ${RELEASE_VERSION} ${REF_BRANCH} ${STAGE} ${STAGE_ITERATION}
 fi

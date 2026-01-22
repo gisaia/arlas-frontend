@@ -1,0 +1,55 @@
+name: Release ARLAS common
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Version to release
+        required: true
+      stage:
+        type: choice
+        description: Stage of the release
+        required: true
+        options:
+        - beta
+        - rc
+        - stable
+      stage_iteration:
+        description: Iteration of the release (needed for beta and rc)
+        required: false
+
+run-name: Release ARLAS common ${{inputs.version}} ${{inputs.stage}} ${{inputs.stage_iteration}}
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        registry-url: 'https://registry.npmjs.org'
+    - name: Install latest npm version
+      run: npm install -g npm@latest
+    - name: Extract branch name
+      shell: bash
+      run: echo "branch=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
+      id: extract_branch
+    - name: Release
+      env:
+        # secrets are defined here : https://github.com/organizations/gisaia/settings/secrets/actions
+        GITHUB_CHANGELOG_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GOOGLE_CHAT_RELEASE_CHANEL: ${{ secrets.GOOGLE_CHAT_RELEASE_CHANEL }}
+        DOCKER_USERNAME: ${{ secrets.DOCKER_HUB_USER }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
+        VERSION: ${{ inputs.version }}
+        STAGE: ${{ inputs.stage }}
+        ITERATION: ${{ inputs.stage_iteration }}
+        BRANCH: ${{ steps.extract_branch.outputs.branch }}
+      run: |
+        bash release-common.sh -version=$VERSION -s=$STAGE -i=$ITERATION -ref_branch=$BRANCH
