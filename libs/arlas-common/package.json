@@ -1,6 +1,6 @@
 {
   "name": "arlas-common",
-  "version": "27.2.0",
+  "version": "27.3.0-dev0",
   "description": "Common interfaces of ARLAS libraries",
   "homepage": "https://github.com/gisaia/arlas-frontend#readme",
   "bugs": {
